@@ -36,7 +36,7 @@ func (c *cache) checkTTL() {
 	for now := range time.Tick(time.Second) {
 		c.mu.Lock()
 		for k, v := range c.m {
-			if now.Unix()+int64(c.ttl/time.Second) > v.TimeStamp {
+			if now.Unix()-int64(c.ttl/time.Second) > v.TimeStamp {
 				delete(c.m, k)
 			}
 		}
